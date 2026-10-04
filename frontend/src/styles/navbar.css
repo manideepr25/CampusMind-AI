@@ -1,0 +1,391 @@
+/* ================================================= */
+/* CAMPUSMIND AI - NAVBAR */
+/* ================================================= */
+
+.navbar {
+  width: 100%;
+  min-height: 86px;
+
+  padding: 12px 6%;
+
+  display: flex;
+  align-items: center;
+
+  background: #ffffff;
+
+  border-bottom: 1px solid #e5e7eb;
+
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+
+  box-sizing: border-box;
+
+  gap: 0;
+}
+
+/* ================================================= */
+/* COLLEGE BRAND */
+/* ================================================= */
+
+.college-brand {
+  display: flex;
+  align-items: center;
+
+  gap: 13px;
+
+  flex-shrink: 0;
+
+  cursor: default;
+}
+
+.college-logo-box {
+  width: 58px;
+  height: 58px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: #eef4ff;
+
+  border: 1px solid #dbe7ff;
+
+  border-radius: 12px;
+
+  overflow: hidden;
+
+  flex-shrink: 0;
+}
+
+.college-logo-box img {
+  width: 48px !important;
+  height: 48px !important;
+
+  object-fit: contain;
+
+  display: block;
+}
+
+.college-name {
+  display: flex;
+  align-items: center;
+}
+
+.college-name h3 {
+  margin: 0 !important;
+
+  color: #172554 !important;
+
+  font-size: 16px !important;
+
+  font-weight: 700 !important;
+
+  line-height: 1.3;
+
+  white-space: nowrap;
+}
+
+/* ================================================= */
+/* NAVBAR DIVIDER */
+/* ================================================= */
+
+.navbar-divider {
+  width: 1px;
+  height: 48px;
+
+  margin: 0 28px;
+
+  background: #dbe3ef;
+
+  flex-shrink: 0;
+}
+
+/* ================================================= */
+/* CAMPUSMIND BRAND */
+/* ================================================= */
+
+.navbar .brand {
+  display: flex;
+
+  align-items: center;
+
+  cursor: pointer;
+
+  flex-shrink: 0;
+}
+
+.navbar .brand .brand-icon {
+  display: none !important;
+}
+
+.navbar .brand h2 {
+  margin: 0 !important;
+
+  color: #111827 !important;
+
+  font-size: 25px !important;
+
+  font-weight: 800 !important;
+
+  line-height: 1.1;
+}
+
+.navbar .brand span {
+  display: block;
+
+  margin-top: 5px;
+
+  color: #64748b !important;
+
+  font-size: 13px !important;
+
+  font-weight: 500;
+}
+
+/* ================================================= */
+/* NAVIGATION */
+/* ================================================= */
+
+.navbar nav {
+  display: flex;
+
+  align-items: center;
+
+  gap: 30px;
+
+  margin-left: auto;
+}
+
+.navbar nav button {
+  border: none;
+
+  background: transparent;
+
+  color: #1f2937;
+
+  font-family: inherit;
+
+  font-size: 15px;
+
+  font-weight: 600;
+
+  padding: 10px 4px;
+
+  cursor: pointer;
+
+  transition:
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.navbar nav button:hover {
+  color: #4f46e5;
+
+  transform: translateY(-1px);
+}
+
+/* ================================================= */
+/* LOGIN BUTTON */
+/* ================================================= */
+
+.navbar .nav-login {
+  padding: 13px 27px !important;
+
+  border: none;
+
+  border-radius: 11px;
+
+  background: #4f46e5 !important;
+
+  color: #ffffff !important;
+
+  font-size: 15px;
+
+  font-weight: 700;
+
+  box-shadow:
+    0 7px 18px rgba(79, 70, 229, 0.20);
+
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.navbar .nav-login:hover {
+  background: #4338ca !important;
+
+  color: #ffffff !important;
+
+  transform: translateY(-1px);
+
+  box-shadow:
+    0 9px 22px rgba(79, 70, 229, 0.25);
+}
+
+/* ================================================= */
+/* NAVBAR RESPONSIVE */
+/* ================================================= */
+
+@media (max-width: 1100px) {
+  .navbar {
+    padding: 12px 4%;
+  }
+
+  .college-name h3 {
+    font-size: 14px !important;
+  }
+
+  .navbar-divider {
+    margin: 0 18px;
+  }
+
+  .navbar .brand h2 {
+    font-size: 22px !important;
+  }
+
+  .navbar nav {
+    gap: 20px;
+  }
+}
+
+@media (max-width: 850px) {
+  .navbar {
+    min-height: 78px;
+
+    padding: 10px 3%;
+  }
+
+  .college-logo-box {
+    width: 50px;
+    height: 50px;
+  }
+
+  .college-logo-box img {
+    width: 42px !important;
+    height: 42px !important;
+  }
+
+  .college-name h3 {
+    font-size: 13px !important;
+  }
+
+  .navbar-divider {
+    height: 42px;
+
+    margin: 0 12px;
+  }
+
+  .navbar .brand h2 {
+    font-size: 20px !important;
+  }
+
+  .navbar .brand span {
+    font-size: 11px !important;
+  }
+
+  .navbar nav {
+    gap: 15px;
+  }
+
+  .navbar nav button {
+    font-size: 13px;
+  }
+
+  .navbar .nav-login {
+    padding: 10px 19px !important;
+  }
+}
+
+@media (max-width: 650px) {
+  .navbar {
+    min-height: auto;
+
+    padding: 12px 16px;
+
+    flex-wrap: wrap;
+
+    gap: 12px;
+  }
+
+  .college-brand {
+    gap: 9px;
+  }
+
+  .college-logo-box {
+    width: 46px;
+    height: 46px;
+
+    border-radius: 10px;
+  }
+
+  .college-logo-box img {
+    width: 38px !important;
+    height: 38px !important;
+  }
+
+  .college-name h3 {
+    max-width: 180px;
+
+    white-space: normal;
+
+    font-size: 11px !important;
+  }
+
+  .navbar-divider {
+    display: none;
+  }
+
+  .navbar .brand {
+    margin-left: auto;
+  }
+
+  .navbar .brand h2 {
+    font-size: 18px !important;
+  }
+
+  .navbar .brand span {
+    font-size: 10px !important;
+  }
+
+  .navbar nav {
+    width: 100%;
+
+    margin-left: 0;
+
+    justify-content: flex-end;
+
+    gap: 15px;
+
+    padding-top: 3px;
+  }
+
+  .navbar nav button {
+    font-size: 12px;
+  }
+
+  .navbar .nav-login {
+    padding: 9px 17px !important;
+
+    border-radius: 9px;
+  }
+}
+
+@media (max-width: 430px) {
+  .college-name {
+    display: none;
+  }
+
+  .navbar .brand h2 {
+    font-size: 17px !important;
+  }
+
+  .navbar .brand span {
+    font-size: 9px !important;
+  }
+
+  .navbar nav {
+    gap: 10px;
+  }
+}
