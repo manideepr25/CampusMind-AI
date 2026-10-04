@@ -1,80 +1,70 @@
 import requests
 
-
-# ==========================================
-# OLLAMA SETTINGS
-# ==========================================
-
 OLLAMA_URL = "http://localhost:11434/api/generate"
-
 MODEL_NAME = "qwen3:4b"
 
 
-# ==========================================
-# GENERATE ANSWER USING QWEN3
-# ==========================================
-
-def generate_answer(
-    question,
-    context
-):
+def generate_answer(question, context):
 
     prompt = f"""
-You are CampusMind AI, a college information assistant.
-
-Answer the student's question using ONLY the information
-provided in the context below.
-
-If the answer is not available in the context,
-say:
-
-"I couldn't find this information in the college documents."
-
-Do not invent or assume information.
-
-Keep the answer clear, simple and helpful.
+Answer the student's question using ONLY the information in the context.
 
 CONTEXT:
 {context}
 
-STUDENT QUESTION:
+QUESTION:
 {question}
 
-ANSWER:
+FINAL ANSWER:
 """
 
+    try:
+        response = requests.post(
+            OLLAMA_URL,
+            json={
+                "model": MODEL_NAME,
+                "prompt": prompt,
+                "stream": False,
 
-    response = requests.post(
-        OLLAMA_URL,
-        json={
-            "model": MODEL_NAME,
-            "prompt": prompt,
-            "stream": False,
-            
-        },
-        timeout=300,
-    )
+                # Disable Qwen3 thinking
+                "think": False,
 
+                "options": {
+                    "temperature": 0.1,
+                    "num_predict": 300
+                }
+            },
+            timeout=120
+        )
 
-    response.raise_for_status()
+        response.raise_for_status()
 
+        data = response.json()
 
-    data = response.json()
+        answer = data.get("response", "").strip()
 
+        # Safety check
+        if not answer:
+            return "I couldn't generate an answer."
 
-    return data["response"].strip()
+        return answer
 
+    except requests.exceptions.RequestException as error:
 
-# ==========================================
-# TEST QWEN3
-# ==========================================
+        print("Ollama connection error:", error)
+
+        return "Unable to connect to the AI model."
+
+    except Exception as error:
+
+        print("LLM error:", error)
+
+        return "An error occurred while generating the answer."
+
 
 if __name__ == "__main__":
 
-    question = input(
-        "Enter a question: "
-    )
-
+    question = input("Enter a question: ")
 
     context = """
 The college offers the following B.Tech branches:
@@ -89,16 +79,15 @@ The college offers the following B.Tech branches:
 8. Civil Engineering (CIVIL)
 """
 
-
     answer = generate_answer(
         question,
         context
     )
-
 
     print()
     print("=" * 60)
     print("QWEN3 ANSWER")
     print("=" * 60)
     print()
+
     print(answer)
