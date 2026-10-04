@@ -1,4 +1,5 @@
 import collegeLogo from "../assets/mic-college-logo.png";
+import "./LandingPage.css";
 
 function LandingPage({ setPage }) {
   return (
@@ -80,6 +81,7 @@ function LandingPage({ setPage }) {
 
       </header>
 
+
       {/* ================================================= */}
       {/* HOME */}
       {/* ================================================= */}
@@ -101,6 +103,7 @@ function LandingPage({ setPage }) {
             <h1>
               Your College.
               <br />
+
               <span>
                 Your AI Assistant.
               </span>
@@ -139,6 +142,7 @@ function LandingPage({ setPage }) {
 
           </div>
 
+
           {/* ================================================= */}
           {/* HERO CHAT CARD */}
           {/* ================================================= */}
@@ -165,6 +169,7 @@ function LandingPage({ setPage }) {
 
             </div>
 
+
             <div className="chat-body">
 
               <div className="bot-message">
@@ -185,6 +190,7 @@ function LandingPage({ setPage }) {
 
             </div>
 
+
             <div className="chat-input-preview">
 
               Ask anything about your college...
@@ -198,6 +204,7 @@ function LandingPage({ setPage }) {
           </div>
 
         </section>
+
 
         {/* ================================================= */}
         {/* FEATURES */}
@@ -226,6 +233,7 @@ function LandingPage({ setPage }) {
 
           </div>
 
+
           <div className="feature-grid">
 
             {/* Feature 1 */}
@@ -247,6 +255,7 @@ function LandingPage({ setPage }) {
 
             </div>
 
+
             {/* Feature 2 */}
 
             <div className="feature-card">
@@ -265,6 +274,7 @@ function LandingPage({ setPage }) {
               </p>
 
             </div>
+
 
             {/* Feature 3 */}
 
@@ -285,6 +295,7 @@ function LandingPage({ setPage }) {
 
             </div>
 
+
             {/* Feature 4 */}
 
             <div className="feature-card">
@@ -304,6 +315,7 @@ function LandingPage({ setPage }) {
 
             </div>
 
+
             {/* Feature 5 */}
 
             <div className="feature-card">
@@ -322,6 +334,7 @@ function LandingPage({ setPage }) {
               </p>
 
             </div>
+
 
             {/* Feature 6 */}
 
@@ -346,6 +359,7 @@ function LandingPage({ setPage }) {
 
         </section>
 
+
         {/* ================================================= */}
         {/* HOW IT WORKS */}
         {/* ================================================= */}
@@ -363,6 +377,7 @@ function LandingPage({ setPage }) {
             </h2>
 
           </div>
+
 
           <div className="steps">
 
@@ -385,6 +400,7 @@ function LandingPage({ setPage }) {
 
             </div>
 
+
             {/* Step 2 */}
 
             <div className="step">
@@ -404,6 +420,7 @@ function LandingPage({ setPage }) {
 
             </div>
 
+
             {/* Step 3 */}
 
             <div className="step">
@@ -422,6 +439,7 @@ function LandingPage({ setPage }) {
               </p>
 
             </div>
+
 
             {/* Step 4 */}
 
@@ -445,6 +463,7 @@ function LandingPage({ setPage }) {
           </div>
 
         </section>
+
 
         {/* ================================================= */}
         {/* CTA */}
@@ -470,30 +489,18 @@ function LandingPage({ setPage }) {
 
         </section>
 
+
         {/* ================================================= */}
-        {/* FOOTER */}
+        {/* COLLEGE FOOTER */}
         {/* ================================================= */}
 
         <footer className="campusmind-footer">
 
           <div className="footer-main">
 
-            {/* CAMPUSMIND */}
-
-            <div className="footer-brand">
-
-              <strong>
-                🧠 CampusMind AI
-              </strong>
-
-              <p>
-                RAG-Powered Multilingual
-                College Assistant
-              </p>
-
-            </div>
-
-            {/* COLLEGE INFORMATION */}
+            {/* ================================================= */}
+            {/* COLLEGE ADDRESS */}
+            {/* ================================================= */}
 
             <div className="footer-college">
 
@@ -510,7 +517,10 @@ function LandingPage({ setPage }) {
 
             </div>
 
+
+            {/* ================================================= */}
             {/* CONTACT INFORMATION */}
+            {/* ================================================= */}
 
             <div className="footer-contact">
 
@@ -538,14 +548,16 @@ function LandingPage({ setPage }) {
 
           </div>
 
+
+          {/* ================================================= */}
+          {/* FOOTER BOTTOM */}
+          {/* ================================================= */}
+
           <div className="footer-bottom">
 
             <span>
-              © 2026 CampusMind AI. All rights reserved.
-            </span>
-
-            <span>
-              DVR & Dr. HS MIC College of Technology
+              © 2026 DVR & Dr. HS MIC College of Technology.
+              All rights reserved.
             </span>
 
           </div>

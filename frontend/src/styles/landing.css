@@ -532,37 +532,171 @@
 
 
 /* ================================================= */
-/* FOOTER */
+/* COLLEGE FOOTER */
 /* ================================================= */
 
-footer {
-  padding: 35px 8%;
+.campusmind-footer {
+  background: #071a3d;
 
+  color: #ffffff;
+
+  padding: 70px 8% 25px;
+
+  border-top: none;
+}
+
+
+.footer-main {
+  max-width: 1400px;
+
+  margin: 0 auto;
+}
+
+
+/* ================================================= */
+/* HIDE OLD CAMPUSMIND FOOTER BRAND */
+/* ================================================= */
+
+.footer-brand {
+  display: none;
+}
+
+
+/* ================================================= */
+/* COLLEGE ADDRESS */
+/* ================================================= */
+
+.footer-college {
+  text-align: center;
+}
+
+
+.footer-college::before {
+  content: "📍  Our College Address";
+
+  display: block;
+
+  margin-bottom: 30px;
+
+  color: #4da3ff;
+
+  font-size: 36px;
+
+  font-weight: 700;
+}
+
+
+.footer-college h3 {
+  margin: 0 0 15px;
+
+  color: #ffffff;
+
+  font-size: 27px;
+
+  font-weight: 700;
+}
+
+
+.footer-college p {
+  margin: 0;
+
+  color: #dbe7f8;
+
+  font-size: 18px;
+
+  line-height: 1.8;
+}
+
+
+/* ================================================= */
+/* CONTACT US */
+/* ================================================= */
+
+.footer-contact {
+  margin-top: 55px;
+
+  text-align: center;
+}
+
+
+.footer-contact h3 {
   display: flex;
-
-  justify-content: space-between;
 
   align-items: center;
 
-  background: #ffffff;
+  justify-content: center;
 
-  color: #667085;
+  gap: 25px;
 
-  font-size: 13px;
+  margin: 0 0 35px;
 
-  border-top: 1px solid #eaecf0;
+  color: #4da3ff;
+
+  font-size: 29px;
+
+  font-weight: 700;
 }
 
 
-footer strong {
-  color: #101828;
+.footer-contact h3::before,
+.footer-contact h3::after {
+  content: "";
+
+  width: 70px;
+
+  height: 2px;
+
+  background: #4da3ff;
 }
 
 
-footer p {
-  margin: 7px 0 0;
+.footer-contact p {
+  display: inline-flex;
 
-  color: #667085;
+  align-items: center;
+
+  margin: 8px 25px;
+
+  color: #ffffff;
+
+  font-size: 16px;
+}
+
+
+/* ================================================= */
+/* FOOTER BOTTOM */
+/* ================================================= */
+
+.footer-bottom {
+  max-width: 1400px;
+
+  margin: 45px auto 0;
+
+  padding-top: 25px;
+
+  display: flex;
+
+  justify-content: center;
+
+  align-items: center;
+
+  border-top: 1px solid rgba(77, 163, 255, 0.35);
+
+  text-align: center;
+}
+
+
+.footer-bottom span {
+  color: #aebfd8;
+
+  font-size: 14px;
+}
+
+
+/* Hide duplicate college name */
+
+.footer-bottom span:last-child {
+  display: none;
 }
 
 
@@ -598,8 +732,43 @@ footer p {
     grid-template-columns: repeat(2, 1fr);
   }
 
+
+  /* FOOTER */
+
+  .campusmind-footer {
+    padding: 55px 30px 25px;
+  }
+
+
+  .footer-college::before {
+    font-size: 30px;
+  }
+
+
+  .footer-college h3 {
+    font-size: 23px;
+  }
+
+
+  .footer-college p {
+    font-size: 16px;
+  }
+
+
+  .footer-contact p {
+    display: flex;
+
+    justify-content: center;
+
+    margin: 12px 0;
+  }
+
 }
 
+
+/* ================================================= */
+/* MOBILE */
+/* ================================================= */
 
 @media (max-width: 650px) {
 
@@ -625,12 +794,64 @@ footer p {
   }
 
 
-  footer {
-    flex-direction: column;
+  /* FOOTER */
 
-    gap: 20px;
+  .campusmind-footer {
+    padding: 45px 20px 20px;
+  }
 
-    text-align: center;
+
+  .footer-college::before {
+    font-size: 25px;
+  }
+
+
+  .footer-college h3 {
+    font-size: 20px;
+  }
+
+
+  .footer-college p {
+    font-size: 14px;
+  }
+
+
+  .footer-contact {
+    margin-top: 40px;
+  }
+
+
+  .footer-contact h3 {
+    font-size: 24px;
+
+    gap: 12px;
+  }
+
+
+  .footer-contact h3::before,
+  .footer-contact h3::after {
+    width: 35px;
+  }
+
+
+  .footer-contact p {
+    display: flex;
+
+    justify-content: center;
+
+    margin: 10px 0;
+
+    font-size: 14px;
+  }
+
+
+  .footer-bottom {
+    margin-top: 30px;
+  }
+
+
+  .footer-bottom span {
+    font-size: 12px;
   }
 
 }
