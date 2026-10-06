@@ -12,6 +12,7 @@ from dotenv import load_dotenv
 
 from database import get_connection
 from schemas import UserCreate, UserLogin
+from rag_pipeline import ask_campusmind
 
 
 load_dotenv()
@@ -321,18 +322,43 @@ def protected_route(
 
 
 # ==============================
-# CHAT
+# CHAT - RAG PIPELINE
 # ==============================
 
 @app.post("/chat")
 def chat(message: dict):
 
+    # Get student's message
     user_message = message.get(
         "message",
         "",
-    )
+    ).strip()
 
-    return {
-        "reply": "I received your question: "
-        + user_message
-    }
+    # Check empty message
+    if not user_message:
+
+        raise HTTPException(
+            status_code=400,
+            detail="Message cannot be empty",
+        )
+
+    try:
+
+        # Send question to RAG pipeline
+        result = ask_campusmind(user_message)
+
+        # Return AI answer + source information
+        return {
+            "reply": result["answer"],
+            "sources": result["sources"],
+        }
+
+    except Exception as e:
+
+        # Print actual error in backend terminal
+        print("Chat error:", e)
+
+        raise HTTPException(
+            status_code=500,
+            detail="Unable to generate answer",
+        )

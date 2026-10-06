@@ -7,87 +7,79 @@ MODEL_NAME = "qwen3:4b"
 def generate_answer(question, context):
 
     prompt = f"""
-Answer the student's question using ONLY the information in the context.
+/no_think
 
-CONTEXT:
+You are CampusMind AI, a college information assistant.
+
+Answer the student's question using ONLY the information provided below.
+
+Rules:
+- Give ONLY the final answer.
+- Do NOT explain your reasoning.
+- Do NOT describe how you found the answer.
+- Do NOT mention chunks.
+- Do NOT mention sources inside the answer.
+- Do NOT repeat the question.
+- Do NOT say "we are given".
+- Do NOT say "looking at the information".
+- Do NOT invent information.
+- Keep the answer short and direct.
+- If the answer is a list, use bullet points.
+- If the information is not available, say:
+"I couldn't find this information in the college documents."
+
+COLLEGE INFORMATION:
 {context}
 
-QUESTION:
+STUDENT QUESTION:
 {question}
 
-FINAL ANSWER:
+ANSWER:
 """
 
-    try:
-        response = requests.post(
-            OLLAMA_URL,
-            json={
-                "model": MODEL_NAME,
-                "prompt": prompt,
-                "stream": False,
-
-                # Disable Qwen3 thinking
-                "think": False,
-
-                "options": {
-                    "temperature": 0.1,
-                    "num_predict": 300
-                }
+    response = requests.post(
+        OLLAMA_URL,
+        json={
+            "model": MODEL_NAME,
+            "prompt": prompt,
+            "stream": False,
+            "think": False,
+            "options": {
+                "temperature": 0.0,
+                "num_predict": 800,
             },
-            timeout=120
-        )
-
-        response.raise_for_status()
-
-        data = response.json()
-
-        answer = data.get("response", "").strip()
-
-        # Safety check
-        if not answer:
-            return "I couldn't generate an answer."
-
-        return answer
-
-    except requests.exceptions.RequestException as error:
-
-        print("Ollama connection error:", error)
-
-        return "Unable to connect to the AI model."
-
-    except Exception as error:
-
-        print("LLM error:", error)
-
-        return "An error occurred while generating the answer."
-
-
-if __name__ == "__main__":
-
-    question = input("Enter a question: ")
-
-    context = """
-The college offers the following B.Tech branches:
-
-1. Computer Science and Engineering (CSE)
-2. Artificial Intelligence and Data Science (AI&DS)
-3. Artificial Intelligence and Machine Learning (AI&ML)
-4. Information Technology (IT)
-5. Electronics and Communication Engineering (ECE)
-6. Electrical and Electronics Engineering (EEE)
-7. Mechanical Engineering (MECH)
-8. Civil Engineering (CIVIL)
-"""
-
-    answer = generate_answer(
-        question,
-        context
+        },
+        timeout=300,
     )
 
-    print()
-    print("=" * 60)
-    print("QWEN3 ANSWER")
-    print("=" * 60)
-    print()
+    response.raise_for_status()
 
-    print(answer)
+    data = response.json()
+
+    answer = data.get("response", "").strip()
+
+    if not answer:
+        raise Exception("Qwen3 returned an empty response")
+
+    # Remove visible thinking if Qwen3 still returns it
+    if "<think>" in answer and "</think>" in answer:
+        answer = answer.split("</think>", 1)[1].strip()
+
+    elif "<think>" in answer:
+        answer = answer.split("<think>", 1)[0].strip()
+
+    # Remove accidental instruction/reasoning prefixes
+    unwanted_prefixes = [
+        "FINAL ANSWER:",
+        "Answer:",
+        "ANSWER:",
+    ]
+
+    for prefix in unwanted_prefixes:
+        if answer.startswith(prefix):
+            answer = answer[len(prefix):].strip()
+
+    if not answer:
+        raise Exception("No final answer returned by Qwen3")
+
+    return answer

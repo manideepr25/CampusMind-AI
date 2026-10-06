@@ -1,9 +1,55 @@
-import collegeLogo from "../assets/mic-college-logo.png";
+import { useState } from "react";
 import "./LandingPage.css";
+import collegeLogo from "../assets/mic-college-logo.png";
 
 function LandingPage({ setPage }) {
+  const [chatMessage, setChatMessage] = useState("");
+
+  const [messages, setMessages] = useState([
+    {
+      id: 1,
+      sender: "bot",
+      text: "👋 Hello! I'm CampusMind AI.",
+    },
+    {
+      id: 2,
+      sender: "bot",
+      text: "How can I help you with your college information?",
+    },
+    {
+      id: 3,
+      sender: "user",
+      text: "What B.Tech branches are available?",
+    },
+    {
+      id: 4,
+      sender: "bot",
+      text: "🎓 Our college offers B.Tech programs including CSE, AI&DS, AI&ML, IT, ECE and more.",
+    },
+  ]);
+
+  const sendPublicMessage = () => {
+    if (!chatMessage.trim()) {
+      return;
+    }
+
+    const newMessage = {
+      id: Date.now(),
+      sender: "user",
+      text: chatMessage.trim(),
+    };
+
+    setMessages((previousMessages) => [
+      ...previousMessages,
+      newMessage,
+    ]);
+
+    setChatMessage("");
+  };
+
   return (
-    <>
+    <div className="landing-page">
+
       {/* ================================================= */}
       {/* NAVBAR */}
       {/* ================================================= */}
@@ -12,49 +58,40 @@ function LandingPage({ setPage }) {
 
         {/* COLLEGE BRAND */}
         <div className="college-brand">
+          <img
+            src={collegeLogo}
+            alt="DVR & Dr. HS MIC College of Technology"
+            className="college-logo"
+          />
 
-          <div className="college-logo-box">
-            <img
-              src={collegeLogo}
-              alt="DVR & Dr. HS MIC College of Technology"
-            />
-          </div>
-
-          <div className="college-name">
-            <h3>
+          <div className="college-brand-text">
+            <strong>
               DVR & Dr. HS MIC College of Technology
-            </h3>
+            </strong>
           </div>
-
         </div>
 
-        {/* NAVBAR DIVIDER */}
-        <div className="navbar-divider"></div>
+        {/* DIVIDER */}
+        <div className="navbar-divider">|</div>
 
         {/* CAMPUSMIND BRAND */}
         <div
           className="brand"
           onClick={() => setPage("home")}
         >
-
-          <div>
-            <h2>
-              CampusMind AI
-            </h2>
-
-            <span>
-              Smart College Assistant
-            </span>
+          <div className="brand-icon">
+            🧠
           </div>
 
+          <div>
+            <h2>CampusMind AI</h2>
+            <span>Smart College Assistant</span>
+          </div>
         </div>
 
         {/* NAVIGATION */}
         <nav>
-
-          <button
-            onClick={() => setPage("home")}
-          >
+          <button onClick={() => setPage("home")}>
             Home
           </button>
 
@@ -76,24 +113,20 @@ function LandingPage({ setPage }) {
           >
             Login
           </button>
-
         </nav>
 
       </header>
 
 
       {/* ================================================= */}
-      {/* HOME */}
+      {/* HERO */}
       {/* ================================================= */}
 
       <main>
 
-        {/* ================================================= */}
-        {/* HERO SECTION */}
-        {/* ================================================= */}
-
         <section className="hero-section">
 
+          {/* LEFT SIDE */}
           <div className="hero-content">
 
             <div className="badge">
@@ -103,17 +136,12 @@ function LandingPage({ setPage }) {
             <h1>
               Your College.
               <br />
-
-              <span>
-                Your AI Assistant.
-              </span>
+              <span>Your AI Assistant.</span>
             </h1>
 
             <p>
-              CampusMind AI helps students, faculty and
-              administrators access college information
-              through an intelligent multilingual chatbot
-              powered by RAG and AI.
+              Get instant answers about your college in English or Telugu,
+              straight from official documents.
             </p>
 
             <div className="hero-buttons">
@@ -140,63 +168,114 @@ function LandingPage({ setPage }) {
 
             </div>
 
+            <div className="hero-flow">
+              <span>Ask</span>
+              <span className="flow-arrow">→</span>
+              <span>Get answer</span>
+              <span className="flow-arrow">→</span>
+              <span>See source</span>
+            </div>
+
           </div>
 
 
           {/* ================================================= */}
-          {/* HERO CHAT CARD */}
+          {/* PUBLIC AI CHATBOT */}
           {/* ================================================= */}
 
-          <div className="hero-card">
+          <div className="hero-chatbot">
 
-            <div className="chat-header">
+            {/* CHAT HEADER */}
+            <div className="hero-chat-header">
 
-              <div className="chat-avatar">
-                🧠
+              <div className="hero-chat-title">
+
+                <div className="hero-chat-icon">
+                  🧠
+                </div>
+
+                <div>
+                  <strong>
+                    CampusMind AI
+                  </strong>
+
+                  <span>
+                    Online • Ready to help
+                  </span>
+                </div>
+
               </div>
 
-              <div>
-                <strong>
-                  CampusMind AI
-                </strong>
-
-                <small>
-                  Online • Ready to help
-                </small>
-              </div>
-
-              <span className="online-dot"></span>
+              <span className="hero-online-dot"></span>
 
             </div>
 
 
-            <div className="chat-body">
+            {/* CHAT MESSAGES */}
+            <div className="hero-chat-body">
 
-              <div className="bot-message">
-                👋 Hello! I'm CampusMind AI.
-                <br />
-                How can I help you today?
-              </div>
+              {messages.map((message) => (
 
-              <div className="user-message">
-                What B.Tech branches are available?
-              </div>
+                <div
+                  key={message.id}
+                  className={
+                    message.sender === "user"
+                      ? "hero-user-message"
+                      : "hero-bot-message"
+                  }
+                >
+                  {message.text}
+                </div>
 
-              <div className="bot-message">
-                🎓 Our college offers B.Tech programs
-                including CSE, AI&DS, AI&ML, IT, ECE
-                and more.
-              </div>
+              ))}
 
             </div>
 
 
-            <div className="chat-input-preview">
+            {/* PUBLIC CHAT NOTE */}
+            <div className="hero-chat-note">
+              💡 No login required to ask questions
+            </div>
 
-              Ask anything about your college...
 
-              <button>
+            {/* CHAT INPUT */}
+            <div className="hero-chat-input">
+
+              <input
+                type="text"
+                placeholder="Ask anything about your college..."
+                value={chatMessage}
+                onChange={(event) =>
+                  setChatMessage(event.target.value)
+                }
+                onKeyDown={(event) => {
+                  if (event.key === "Enter") {
+                    sendPublicMessage();
+                  }
+                }}
+              />
+
+              <button
+                onClick={sendPublicMessage}
+                aria-label="Send message"
+              >
                 ➤
+              </button>
+
+            </div>
+
+
+            {/* LOGIN FOR PERSONALIZED FEATURES */}
+            <div className="hero-chat-footer">
+
+              <span>
+                Want chat history & personalized services?
+              </span>
+
+              <button
+                onClick={() => setPage("login")}
+              >
+                Login →
               </button>
 
             </div>
@@ -217,18 +296,15 @@ function LandingPage({ setPage }) {
 
           <div className="section-heading">
 
-            <span>
-              FEATURES
-            </span>
+            <span>FEATURES</span>
 
             <h2>
               Everything you need in one place
             </h2>
 
             <p>
-              CampusMind brings college information
-              and student services together in a single
-              intelligent platform.
+              CampusMind brings college information and student
+              services together in a single intelligent platform.
             </p>
 
           </div>
@@ -236,228 +312,72 @@ function LandingPage({ setPage }) {
 
           <div className="feature-grid">
 
-            {/* Feature 1 */}
-
             <div className="feature-card">
+              <div className="feature-icon">🤖</div>
 
-              <div className="feature-icon">
-                🤖
-              </div>
-
-              <h3>
-                AI Chatbot
-              </h3>
+              <h3>AI Chatbot</h3>
 
               <p>
                 Ask questions naturally and receive useful
                 college-related answers.
               </p>
-
             </div>
 
-
-            {/* Feature 2 */}
 
             <div className="feature-card">
+              <div className="feature-icon">📚</div>
 
-              <div className="feature-icon">
-                📚
-              </div>
-
-              <h3>
-                Official Information
-              </h3>
+              <h3>Official Information</h3>
 
               <p>
-                Answers are generated using authorized
-                college documents and information.
+                Answers are generated using authorized college
+                documents and information.
               </p>
-
             </div>
 
-
-            {/* Feature 3 */}
 
             <div className="feature-card">
+              <div className="feature-icon">🌐</div>
 
-              <div className="feature-icon">
-                🌐
-              </div>
-
-              <h3>
-                Multilingual
-              </h3>
+              <h3>Multilingual</h3>
 
               <p>
-                Communicate with CampusMind in English
-                and Telugu.
+                Communicate with CampusMind in English and Telugu.
               </p>
-
             </div>
 
-
-            {/* Feature 4 */}
 
             <div className="feature-card">
+              <div className="feature-icon">🔍</div>
 
-              <div className="feature-icon">
-                🔍
-              </div>
-
-              <h3>
-                Source Citations
-              </h3>
+              <h3>Source Citations</h3>
 
               <p>
-                See the source document used to provide
-                an answer.
+                See the source document used to provide an answer.
               </p>
-
             </div>
 
-
-            {/* Feature 5 */}
 
             <div className="feature-card">
+              <div className="feature-icon">👥</div>
 
-              <div className="feature-icon">
-                👥
-              </div>
-
-              <h3>
-                Student & Faculty
-              </h3>
+              <h3>Student & Faculty</h3>
 
               <p>
-                Dedicated experiences for students,
-                faculty and administrators.
+                Dedicated experiences for students, faculty and
+                administrators.
               </p>
-
             </div>
 
-
-            {/* Feature 6 */}
 
             <div className="feature-card">
+              <div className="feature-icon">📊</div>
 
-              <div className="feature-icon">
-                📊
-              </div>
-
-              <h3>
-                Smart Analytics
-              </h3>
+              <h3>Smart Analytics</h3>
 
               <p>
-                Administrators can monitor queries
-                and system activity.
+                Administrators can monitor queries and system activity.
               </p>
-
-            </div>
-
-          </div>
-
-        </section>
-
-
-        {/* ================================================= */}
-        {/* HOW IT WORKS */}
-        {/* ================================================= */}
-
-        <section className="how-section">
-
-          <div className="section-heading">
-
-            <span>
-              HOW IT WORKS
-            </span>
-
-            <h2>
-              Simple for students. Powerful underneath.
-            </h2>
-
-          </div>
-
-
-          <div className="steps">
-
-            {/* Step 1 */}
-
-            <div className="step">
-
-              <div className="step-number">
-                01
-              </div>
-
-              <h3>
-                Ask
-              </h3>
-
-              <p>
-                Ask your question through the
-                CampusMind chatbot.
-              </p>
-
-            </div>
-
-
-            {/* Step 2 */}
-
-            <div className="step">
-
-              <div className="step-number">
-                02
-              </div>
-
-              <h3>
-                Retrieve
-              </h3>
-
-              <p>
-                Relevant information is retrieved
-                from college documents.
-              </p>
-
-            </div>
-
-
-            {/* Step 3 */}
-
-            <div className="step">
-
-              <div className="step-number">
-                03
-              </div>
-
-              <h3>
-                Generate
-              </h3>
-
-              <p>
-                AI generates a clear answer using
-                the retrieved information.
-              </p>
-
-            </div>
-
-
-            {/* Step 4 */}
-
-            <div className="step">
-
-              <div className="step-number">
-                04
-              </div>
-
-              <h3>
-                Respond
-              </h3>
-
-              <p>
-                You receive the answer along with
-                its source.
-              </p>
-
             </div>
 
           </div>
@@ -476,8 +396,7 @@ function LandingPage({ setPage }) {
           </h2>
 
           <p>
-            Access college information through
-            CampusMind AI.
+            Access college information through CampusMind AI.
           </p>
 
           <button
@@ -489,83 +408,147 @@ function LandingPage({ setPage }) {
 
         </section>
 
-
-        {/* ================================================= */}
-        {/* COLLEGE FOOTER */}
-        {/* ================================================= */}
-
-        <footer className="campusmind-footer">
-
-          <div className="footer-main">
-
-            {/* ================================================= */}
-            {/* COLLEGE ADDRESS */}
-            {/* ================================================= */}
-
-            <div className="footer-college">
-
-              <h3>
-                DVR & Dr. HS MIC College of Technology
-              </h3>
-
-              <p>
-                NH 9, Vijayawada - Hyderabad Highway,
-                Kanchikacherla,
-                <br />
-                N.T.R District, Andhra Pradesh - 521180
-              </p>
-
-            </div>
-
-
-            {/* ================================================= */}
-            {/* CONTACT INFORMATION */}
-            {/* ================================================= */}
-
-            <div className="footer-contact">
-
-              <h3>
-                Contact Us
-              </h3>
-
-              <p>
-                📞 +91 7382616824
-              </p>
-
-              <p>
-                📞 +91 9491457799
-              </p>
-
-              <p>
-                ☎️ 08678-273535, 273569
-              </p>
-
-              <p>
-                ✉️ office@mictech.ac.in
-              </p>
-
-            </div>
-
-          </div>
-
-
-          {/* ================================================= */}
-          {/* FOOTER BOTTOM */}
-          {/* ================================================= */}
-
-          <div className="footer-bottom">
-
-            <span>
-              © 2026 DVR & Dr. HS MIC College of Technology.
-              All rights reserved.
-            </span>
-
-          </div>
-
-        </footer>
-
       </main>
-    </>
+
+
+      {/* ================================================= */}
+      {/* COLLEGE FOOTER */}
+      {/* ================================================= */}
+
+      <footer className="college-footer">
+
+        <div className="college-footer-content">
+
+          {/* ADDRESS */}
+          <div className="college-address-section">
+
+            <h2>
+              <span className="footer-location-icon">
+                📍
+              </span>
+
+              Our{" "}
+              <span>
+                College Address
+              </span>
+            </h2>
+
+            <h3>
+              DVR & Dr. HS MIC College of Technology
+            </h3>
+
+            <p className="college-address">
+              NH 9, Vijayawada - Hyderabad Highway, Kanchikacherla,
+              <br />
+              N.T.R District, Andhra Pradesh - 521180
+            </p>
+
+          </div>
+
+
+          {/* CONTACT */}
+          <div className="college-contact-section">
+
+            <h3 className="contact-heading">
+
+              <span></span>
+
+              Contact Us
+
+              <span></span>
+
+            </h3>
+
+
+            <div className="contact-details">
+
+              <div className="contact-item">
+
+                <div className="contact-icon">
+                  📞
+                </div>
+
+                <div>
+                  <span>Mobile</span>
+
+                  <strong>
+                    +91 7382616824
+                  </strong>
+                </div>
+
+              </div>
+
+
+              <div className="contact-item">
+
+                <div className="contact-icon">
+                  📱
+                </div>
+
+                <div>
+                  <span>Mobile</span>
+
+                  <strong>
+                    +91 9491457799
+                  </strong>
+                </div>
+
+              </div>
+
+
+              <div className="contact-item">
+
+                <div className="contact-icon">
+                  ☎️
+                </div>
+
+                <div>
+                  <span>Landline</span>
+
+                  <strong>
+                    08678-273535, 273569
+                  </strong>
+                </div>
+
+              </div>
+
+
+              <div className="contact-item">
+
+                <div className="contact-icon">
+                  ✉️
+                </div>
+
+                <div>
+                  <span>Email</span>
+
+                  <strong>
+                    office@mictech.ac.in
+                  </strong>
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+
+          {/* FOOTER BOTTOM */}
+          <div className="college-footer-bottom">
+
+            <p>
+              © 2026 DVR & Dr. HS MIC College of Technology.
+              All Rights Reserved.
+            </p>
+
+          </div>
+
+        </div>
+
+      </footer>
+
+    </div>
   );
 }
 
